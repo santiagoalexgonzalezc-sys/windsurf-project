@@ -36,33 +36,7 @@ export default function Home() {
   const regularPosts = mockPosts.filter((post) => !post.featured).slice(0, 3);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="border-b border-gray-200 dark:border-gray-800">
-        <nav className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold">
-            Mi Blog
-          </Link>
-          <ul className="flex gap-6">
-            <li>
-              <Link href="/" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Blog
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
+    <div className="flex flex-col">
       {/* Main Content */}
       <main className="flex-1">
         {/* About Section */}
@@ -72,7 +46,7 @@ export default function Home() {
               <span className="text-gray-500 dark:text-gray-400">Imagen placeholder</span>
             </div>
             <div>
-              <h2 className="text-3xl font-bold mb-4">About me</h2>
+              <h2 className="text-3xl font-bold mb-4 text-center">About me</h2>
               <p className="mb-4 text-gray-600 dark:text-gray-400">
                 Soy un desarrollador apasionado por crear experiencias web modernas y eficientes.
                 Me especializo en tecnologías como Next.js, React y TypeScript.
@@ -93,14 +67,14 @@ export default function Home() {
 
         {/* Blog Section */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-bold mb-8">Blog</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Blog</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Featured Post */}
             {featuredPost && (
               <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
-                <h3 className="text-2xl font-bold mb-3">{featuredPost.title}</h3>
+                <h3 className="text-2xl font-bold mb-3 text-center">{featuredPost.title}</h3>
                 <p className="mb-4 text-gray-600 dark:text-gray-400">{featuredPost.summary}</p>
-                <button className="text-gray-900 dark:text-gray-100 hover:underline">
+                <button className="text-gray-900 dark:text-gray-100 hover:underline text-lg font-semibold text-center block w-full">
                   Leer más
                 </button>
               </div>
@@ -114,9 +88,9 @@ export default function Home() {
                     <span className="text-xs text-gray-500 dark:text-gray-400">Img</span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold mb-1">{post.title}</h4>
+                    <h4 className="font-bold mb-1 text-center">{post.title}</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{post.summary}</p>
-                    <button className="text-sm text-gray-900 dark:text-gray-100 hover:underline">
+                    <button className="text-gray-900 dark:text-gray-100 hover:underline text-lg font-semibold text-center block w-full">
                       Leer
                     </button>
                   </div>
@@ -126,51 +100,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 py-8">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-600 dark:text-gray-400">
-              © {new Date().getFullYear()} Mi Blog. Todos los derechos reservados.
-            </p>
-            <div className="flex gap-6">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                Twitter/X
-              </a>
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                TikTok
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

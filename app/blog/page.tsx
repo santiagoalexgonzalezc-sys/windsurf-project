@@ -39,40 +39,20 @@ const mockPosts: Post[] = [
     title: 'Deploy de Next.js en Vercel',
     summary: 'Paso a paso para desplegar tu aplicación Next.js en Vercel con configuración optimizada.',
   },
+
+  {
+    id: 7,
+    title: 'TypeScript: Guía completa',
+    summary: 'Aprende TypeScript desde cero hasta conceptos avanzados.',
+  }
 ];
 
 export default function Blog() {
   const featuredPost = mockPosts.find((post) => post.featured);
   const regularPosts = mockPosts.filter((post) => !post.featured);
-
+  
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="border-b border-gray-200 dark:border-gray-800">
-        <nav className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold">
-            Dev Portafolio
-          </Link>
-          <ul className="flex gap-6">
-            <li>
-              <Link href="/" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
-                Blog
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
+    <div className="flex flex-col">
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section - Featured Post */}
@@ -83,11 +63,14 @@ export default function Blog() {
                 <span className="text-gray-500 dark:text-gray-400">Imagen destacada</span>
               </div>
               <div>
-                <h1 className="text-4xl font-bold mb-4">{featuredPost.title}</h1>
+                <h1 className="text-3xl font-bold mb-4 text-center">{featuredPost.title}</h1>
                 <p className="mb-6 text-gray-600 dark:text-gray-400">{featuredPost.summary}</p>
-                <button className="inline-block px-6 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
+                <Link
+                  href={`/blog/${featuredPost.id}`}
+                  className="inline-block px-6 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors border-2 border-black text-lg font-semibold text-center w-full"
+                >
                   Leer más
-                </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -95,68 +78,26 @@ export default function Blog() {
 
         {/* Posts Grid */}
         <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-bold mb-8">Últimos posts</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center">Últimos posts</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {regularPosts.map((post) => (
               <div key={post.id} className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
                 <div className="w-full aspect-square bg-gray-200 dark:bg-gray-800 rounded mb-4 flex items-center justify-center">
                   <span className="text-gray-500 dark:text-gray-400">Miniatura</span>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{post.title}</h3>
+                <h3 className="text-xl font-bold mb-2 text-center">{post.title}</h3>
                 <p className="mb-4 text-gray-600 dark:text-gray-400">{post.summary}</p>
-                <button className="text-gray-900 dark:text-gray-100 hover:underline">
+                <Link
+                  href={`/blog/${post.id}`}
+                  className="text-gray-900 dark:text-gray-100 hover:underline text-lg font-semibold text-center block w-full"
+                >
                   Leer
-                </button>
+                </Link>
               </div>
             ))}
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 py-8">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-600 dark:text-gray-400">
-              © {new Date().getFullYear()} Mi Blog. Todos los derechos reservados.
-            </p>
-            <div className="flex gap-6">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                Twitter/X
-              </a>
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                TikTok
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
