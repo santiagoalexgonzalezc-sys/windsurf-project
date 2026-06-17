@@ -1,5 +1,44 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Testing
+
+This project uses Jest and React Testing Library for unit testing.
+
+### Dependencies
+
+- `jest` - Testing framework
+- `@testing-library/react` - React testing utilities
+- `@testing-library/jest-dom` - Custom Jest matchers for DOM elements
+- `@testing-library/user-event` - User interaction simulation
+- `jest-environment-jsdom` - Jest DOM environment
+
+### Configuration
+
+- `jest.config.js` - Jest configuration for Next.js 16 with TypeScript and Tailwind CSS
+- `jest.setup.js` - Setup file for @testing-library/jest-dom matchers
+- `jest.d.ts` - TypeScript type definitions for Jest matchers
+
+### Running Tests
+
+```bash
+# Run all tests once
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+### Existing Tests
+
+- `components/Header.test.tsx` - Tests for Header component:
+  - Renders logo with correct text
+  - Renders navigation links
+  - Navigation links have correct href attributes
+  - Renders with correct semantic structure
+
 ## Getting Started
 
 First, run the development server:
