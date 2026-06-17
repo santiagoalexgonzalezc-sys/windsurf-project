@@ -31,4 +31,20 @@ describe('Header', () => {
     expect(aboutLink.closest('a')).toHaveAttribute('href', '/about')
     expect(blogLink.closest('a')).toHaveAttribute('href', '/blog')
   })
+
+  it('renders with correct semantic structure', () => {
+    render(<Header />)
+    
+    // Verifica que use <header> con role banner
+    const header = screen.getByRole('banner')
+    expect(header).toBeInTheDocument()
+    
+    // Verifica que use <nav> con role navigation
+    const nav = screen.getByRole('navigation')
+    expect(nav).toBeInTheDocument()
+    
+    // Verifica que los links sean accesibles
+    const links = screen.getAllByRole('link')
+    expect(links).toHaveLength(4) // Logo + 3 navigation links
+  })
 })
