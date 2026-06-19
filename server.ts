@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 interface Post {
   id: number;
   title: string;
@@ -10,7 +8,7 @@ interface Post {
   date?: string;
 }
 
-const mockPosts: Post[] = [     
+const mockPosts: Post[] = [
   {
     id: 1,
     title: 'Cómo optimizar tu aplicación Next.js',
@@ -70,70 +68,18 @@ const mockPosts: Post[] = [
   }
 ];
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const currentPost = mockPosts.find((post) => post.id.toString() === slug);
+const server = Bun.serve({
+  port: 3001,
+  routes: {
+    "/posts": {
+      GET: () => {
+        return Response.json(mockPosts);
+      },
+    },
+  },
+  fetch(req) {
+    return new Response("Not Found", { status: 404 });
+  },
+});
 
-  if (!currentPost) {
-    return <p>Post no encontrado</p>;
-  }
-
-  const relatedPosts = mockPosts.filter((post) => post.id.toString() !== slug).slice(0, 4);
-
-  return (
-    <div className="flex flex-col">
-      {/* Main Content */}
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full flex justify-center py-12">
-          <div className="w-[70%] aspect-16/10 bg-gray-200 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-            <span className="text-gray-500 dark:text-gray-400">Imagen hero del post</span>
-          </div>
-        </section>
-
-        {/* Post Content */}
-        <section className="max-w-4xl mx-auto px-4 py-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{currentPost.title}</h1>
-          <div className="flex gap-4 mb-8 text-gray-600 dark:text-gray-400">
-            <span>Por {currentPost.author}</span>
-            <span>•</span>
-            <span>{currentPost.date}</span>
-          </div>
-          <div className="prose prose-gray dark:prose-invert max-w-none">
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              {currentPost.content}
-            </p>
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-        </section>
-
-        {/* Related Posts Grid */}
-        <section className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-bold mb-8">Posts relacionados</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {relatedPosts.map((post) => (
-              <div key={post.id} className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
-                <div className="w-full aspect-square bg-gray-200 dark:bg-gray-800 rounded mb-4 flex items-center justify-center">
-                  <span className="text-gray-500 dark:text-gray-400">Miniatura</span>
-                </div>
-                <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                <p className="mb-4 text-gray-600 dark:text-gray-400">{post.summary}</p>
-                <Link
-                  href={`/blog/${post.id}`}
-                  className="text-gray-900 dark:text-gray-100 hover:underline"
-                >
-                  Leer
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
-    </div>
-  );
-}
+console.log(`Servidor Bun escuchando en ${server.url}`);
