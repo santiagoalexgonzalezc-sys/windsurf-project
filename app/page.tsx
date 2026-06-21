@@ -7,33 +7,18 @@ interface Post {
   featured?: boolean;
 }
 
-const mockPosts: Post[] = [
-  {
-    id: 1,
-    title: 'Cómo optimizar tu aplicación Next.js',
-    summary: 'Aprende las mejores prácticas para mejorar el rendimiento de tus aplicaciones Next.js con técnicas avanzadas de optimización.',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Introducción a TypeScript',
-    summary: 'Guía completa para comenzar con TypeScript y mejorar la calidad de tu código JavaScript.',
-  },
-  {
-    id: 3,
-    title: 'Tailwind CSS: Guía práctica',
-    summary: 'Descubre cómo utilizar Tailwind CSS para crear interfaces modernas y responsivas rápidamente.',
-  },
-  {
-    id: 4,
-    title: 'Testing en React',
-    summary: 'Estrategias y herramientas para escribir tests efectivos en tus aplicaciones React.',
-  },
-];
+async function getPosts(): Promise<Post[]> {
+  const res = await fetch('http://localhost:3001/posts');
+  if (!res.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+  return res.json();
+}
 
-export default function Home() {
-  const featuredPost = mockPosts.find((post) => post.featured);
-  const regularPosts = mockPosts.filter((post) => !post.featured).slice(0, 3);
+export default async function Home() {
+  const posts = await getPosts();
+  const featuredPost = posts.find((post) => post.featured);
+  const regularPosts = posts.filter((post) => !post.featured).slice(0, 3);
 
   return (
     <div className="flex flex-col">
@@ -84,7 +69,7 @@ export default function Home() {
             <div className="space-y-4">
               {regularPosts.map((post) => (
                 <div key={post.id} className="flex gap-4 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
-                  <div className="w-20 h-20 bg-gray-200 dark:bg-gray-800 rounded flex-shrink-0 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-gray-200 dark:bg-gray-800 rounded shrink-0 flex items-center justify-center">
                     <span className="text-xs text-gray-500 dark:text-gray-400">Img</span>
                   </div>
                   <div className="flex-1">
