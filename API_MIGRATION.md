@@ -52,11 +52,13 @@ This project has been migrated from using mock data locally to consuming a REST 
 ### Installation
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Install concurrently (for running both servers):
+1. Install concurrently (for running both servers):
+
 ```bash
 npm install --save-dev concurrently
 ```
@@ -70,17 +72,20 @@ npm run dev:all
 ```
 
 This will start:
+
 - Next.js frontend on `http://localhost:3000`
 - Bun.js API on `http://localhost:3001`
 
 ### Option 2: Run Separately
 
 **Frontend only:**
+
 ```bash
 npm run dev
 ```
 
 **API only:**
+
 ```bash
 npm run server
 ```
@@ -96,6 +101,7 @@ To add new posts to the blog:
 3. Restart the API server (Ctrl+C then `npm run server`)
 
 Example:
+
 ```typescript
 const mockPosts: Post[] = [
   // ... existing posts
@@ -165,6 +171,7 @@ windsurf-project/
 ### Port Conflicts
 
 If port 3000 or 3001 are already in use, you can modify the ports in:
+
 - `server.ts` (line 80) for API port
 - Next.js uses environment variable `PORT` or defaults to 3000
 
@@ -173,11 +180,13 @@ If port 3000 or 3001 are already in use, you can modify the ports in:
 ### Changes Made
 
 **Before (Mock Data):**
+
 - Posts were hardcoded in component files
 - Data was duplicated across multiple files
 - No separation between frontend and data layer
 
 **After (API):**
+
 - Posts served through dedicated API endpoint
 - Single source of truth for blog data
 - Clear separation between frontend and backend
